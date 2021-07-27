@@ -1,0 +1,40 @@
+{% extends "image_boards/base.html" %}
+{% load humanize %}
+
+{% block content %}
+  <div class="container-fluid my-4">
+    <div class="content-feed mx-auto">
+      <div class="card-content">
+        <div class="row">
+          <div class="col-md-12 mx-auto">Posted by <a class="no-dec owner" href="{% url 'image_boards:user_posts' post.owner.id %}">{{ post.owner }}</a> {{ post.date_added|naturaltime }}</div>
+          <a class="no-dec stretched-link" href="{% url 'image_boards:post' post.id %}">
+            <h3 class="col-md-12 mt-2 pl-4 mx-auto">{{ post }}</h3>
+          </a>
+          <img class="post-image mx-auto" src="{{ post.image.url }}">
+        </div>
+      </div>
+
+      {% if post.owner == user %}
+        <a class="btn btn-primary btn-danger" href="{% url 'image_boards:delete_post' post.id %}">Delete </a>
+
+
+      {% endif %}
+      <a type="submit" class="btn btn-primary" href="{% url 'image_boards:index' %}">Back To Main Page</a>
+
+      <div class="mt-5">
+        <h3>Other posts by {{ post.owner }}:</h3>
+        {% for post in other_posts %}
+          <a class="no-dec card-content" href="{% url 'image_boards:post' post.id %}">
+            <div class="row">
+              <div class="col-md-12 mx-auto">Posted by {{ post.owner }} {{ post.date_added|naturaltime }}</div>
+              <h3 class="col-md-12 mt-2 pl-4 mx-auto">{{ post }}</h3>
+              <img class="post-image mx-auto" src="{{ post.image.url }}">
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+      <a type="submit" class="btn btn-primary" href="{% url 'image_boards:index' %}">Back To Main Page</a>
+    </div>
+  </div>
+
+{% endblock content %}

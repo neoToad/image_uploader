@@ -1,0 +1,75 @@
+{% extends "image_boards/base.html" %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid my-4">
+  {% if user.is_authenticated %}
+    <div class="content-feed mx-auto">
+      <div class="upload card-content">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-10 mx-auto mb-0">
+              {{ form.text|as_crispy_field }}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group form-ml col-md-7">
+                {{ form.image|as_crispy_field }}
+            </div>
+            <button type="submit" class="btn btn-primary col-md-3 form-btn">Post image to board</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <div class="content-feed mx-auto">
+      <div class="upload card-content">
+        <h4 class="text-center">Login to upload to the imageboard!</h4>
+      </div>
+    </div>
+  {% endif %}
+  <div class="content-feed mx-auto">
+    {% for post in posts %}
+      <div class="card-content">
+        <div class="row">
+          <div class="col-md-12 mx-auto">Posted by <a class="no-dec owner" href="{% url 'image_boards:user_posts' post.owner.id %}">{{ post.owner }}</a> {{ post.date_added|naturaltime }}</div>
+          <a class="no-dec stretched-link" href="{% url 'image_boards:post' post.id %}">
+            <h3 class="col-md-12 mt-2 pl-4 mx-auto">{{ post }}</h3>
+          </a>
+          <img class="post-image mx-auto" src="{{ post.image.url }}">
+        </div>
+      </div>
+    {% endfor %}
+    {% if posts.has_next %}
+      <p class="pagination">
+        <a class="next-page" href="?page={{ posts.next_page_number }}">More...</a>
+      </p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- jQuery CDN hosted by Google -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jScroll plug-in CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+
+<script>
+  jQuery(function ($) {
+    var $list = $('.content-feed');
+    $list.jscroll({
+      loadingHtml: '<div class="text-center">' +
+        '<img src="{% static 'img/loading.gif' %}" alt="Loading" />' +
+        '</div>',
+      padding: 100,
+      pagingSelector: '.pagination',
+      nextSelector: 'a.next-page:last',
+      contentSelector: '.card-content,.pagination'
+    });
+  });
+</script>
+
+
+{% endblock %}

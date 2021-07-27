@@ -1,0 +1,16 @@
+{% extends "image_boards/base.html" %}
+{%load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid my-4">
+  <div class="content-feed mx-auto">
+    Add an image
+    <form action="{% url 'image_boards:new_post' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button name="submit">Add Image</button>
+      <a href="{% url 'image_boards:index' %}">nevermind </a>
+    </form>
+  </div>
+</div>
+{% endblock content %}

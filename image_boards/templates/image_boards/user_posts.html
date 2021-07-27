@@ -1,0 +1,22 @@
+{% extends "image_boards/base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="container-fluid my-4">
+  <div class="content-feed mx-auto">
+    <h3>All of {% if requesting_user == user %} Your{% else %}{{ user }}'s{% endif %} posts:</h3>
+    {% for post in posts %}
+      <a class="no-dec card-content" href="{% url 'image_boards:post' post.id %}">
+        <div class="row">
+          <div class="col-md-12 mx-auto">Posted by {{ post.owner }} {{ post.date_added|naturaltime }}</div>
+          <h3 class="col-md-12 mt-2 pl-4 mx-auto">{{ post }}</h3>
+          <img class="post-image mx-auto" src="{{ post.image.url }}">
+        </div>
+      </a>
+    {% endfor %}
+    <a href="{% url 'image_boards:index' %}" class="btn btn-primary col-md-6">Back to main page</a>
+  </div>
+</div>
+
+
+{% endblock %}

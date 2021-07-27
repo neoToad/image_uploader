@@ -1,0 +1,33 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Imageupload</title>
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery=full %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="{% static 'js/modal.js' %}"></script>
+</head>
+
+
+
+<body>
+  <header class="header">
+    <h1 class="logo"><a href="{% url 'image_boards:index' %}">Image Board</a></h1>
+    <ul class="main-nav">
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'image_boards:my_posts' %}">Hello, {{ user.username }}</a></li>
+        <li><a href="{% url 'users:logout' %}">Log out</a></li>
+      {% else %}
+        <li><a href="{% url 'users:register' %}">Register</a></li>
+        <li><a href="{% url 'users:login' %}">Login</a></li>
+      {% endif %}
+    </ul>
+  </header>
+  {% block content %}
+  {% endblock %}
+</body>
