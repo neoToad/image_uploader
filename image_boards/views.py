@@ -28,7 +28,7 @@ def index(request):
 
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
-    other_posts_by_user = Post.objects.filter(owner=post.owner)
+    other_posts_by_user = Post.objects.filter(owner=post.owner).exclude(id=post_id)
     context = {'post': post, 'user': request.user, 'other_posts': other_posts_by_user}
     return render(request, 'image_boards/post.html', context)
 
