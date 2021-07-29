@@ -58,7 +58,7 @@ a {
 	border-radius: 5px;
 }
 
-.content-feed {
+.content-feed, .content-feed-u {
     max-width: 650px;
 }
 
@@ -68,7 +68,7 @@ a {
     max-width: 600px;
 }
 
-.card-content {
+.card-content, .card-content-u {
     background-color: white;
     border-radius: 4px;
     border: 1px solid #c5c1c1;
@@ -81,7 +81,7 @@ a {
     position: relative;
 }
 
-.upload.card-content {
+.upload.card-content-u {
     display: block;
 }
 
