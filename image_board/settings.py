@@ -37,7 +37,7 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 
@@ -96,12 +96,18 @@ WSGI_APPLICATION = 'image_board.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# heroku database settings
+import dj_database_url
+
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -160,9 +166,9 @@ MEDIA_URL = AWS_URL + '/media/'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # # Heroku Settings
-# import django_heroku
-#
-# django_heroku.settings(locals(), staticfiles=False)
+import django_heroku
+
+django_heroku.settings(locals(), staticfiles=False)
 #
 # if os.environ.get('DEBUG') == 'TRUE':
 #     DEBUG = True
