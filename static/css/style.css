@@ -161,3 +161,11 @@ a {
 	}
 
 }
+
+@media (min-width: 1204px) {
+	.header {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+}
