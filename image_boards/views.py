@@ -19,7 +19,7 @@ def index(request):
             form.save()
             return redirect('image_boards:index')
     posts = Post.objects.order_by('-date_added')
-    paginator = Paginator(posts, 3)
+    paginator = Paginator(posts, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {'posts': page_obj, 'form': form}
