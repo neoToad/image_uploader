@@ -169,8 +169,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 import django_heroku
 
 django_heroku.settings(locals(), staticfiles=False)
-
-if os.environ.get('DEBUG') == 'TRUE':
-    DEBUG = True
-elif os.environ.get('DEBUG') == 'FALSE':
-    DEBUG = False
+#
+# if os.environ.get('DEBUG') == 'TRUE':
+#     DEBUG = True
+# elif os.environ.get('DEBUG') == 'FALSE':
+#     DEBUG = False
