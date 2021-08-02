@@ -11,6 +11,34 @@
   {% bootstrap_javascript jquery=full %}
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script src="{% static 'js/modal.js' %}"></script>
+
+  <style>
+  @media (max-width: 1025px) {
+    .float {
+	position:fixed;
+	width:10vw;
+	bottom:40px;
+	left:40px;
+	z-index: 100;
+	width:90vw;
+	background-color: #6c757d;
+	color: white;
+	}
+}
+  @media (min-width: 1025px) {
+	.float {
+	position:fixed;
+	width:10vw;
+	bottom:40px;
+	left:40px;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+  }
+}
+
+
+  </style>
 </head>
 
 
@@ -28,6 +56,13 @@
       {% endif %}
     </ul>
   </header>
+
+
+  <a href="#" class="btn btn-outline-secondary float" role="button">
+    <i class="p-2">Back to my portfolio</i>
+  </a>
+
+
   {% block content %}
   {% endblock %}
 </body>
