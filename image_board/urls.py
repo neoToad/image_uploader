@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('image_boards.urls')),
     path('users/', include('users.urls')),
+    path('practice/', include('practice.urls')),
 ]
 
 if settings.DEBUG:

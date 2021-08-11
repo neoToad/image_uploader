@@ -46,12 +46,14 @@ INSTALLED_APPS = [
     # My Apps
     'image_boards',
     'users',
+    'practice',
 
     # Third party
     'bootstrap4',
     'django.contrib.humanize',
     'crispy_forms',
     'storages',
+    'sass_processor',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -145,13 +147,21 @@ USE_TZ = True
 
 # For DEBUG
 
-# STATIC_URL = '/static/'
-#
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")],
-#
-#
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+SASS_PROCESSOR_ROOT = STATIC_ROOT
+
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 LOGIN_URL = 'users:login'
 
@@ -160,10 +170,10 @@ LOGIN_URL = 'users:login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = AWS_URL + '/static/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_URL = AWS_URL + '/media/'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATIC_URL = AWS_URL + '/static/'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# MEDIA_URL = AWS_URL + '/media/'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # # Heroku Settings
 import django_heroku
